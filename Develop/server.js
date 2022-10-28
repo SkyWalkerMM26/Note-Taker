@@ -2,6 +2,7 @@ const express = require('express');
 let dbNotes = require('./db/db.json');
 const fs = require("fs");
 const path = require('path');
+var uniqid = require("uniqid");
 
 const PORT = 3001;
 
@@ -32,6 +33,7 @@ app.post('/api/notes', (req, res) => {
       const newNotesEntry = {
         title,
         text,
+        id: uniqid(),
       };
   
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -40,7 +42,8 @@ app.post('/api/notes', (req, res) => {
         } else {
           const parsedNewNotes = JSON.parse(data);
           parsedNewNotes.push(newNotesEntry);
-          
+          dbNotes =  parsedNewNotes;
+
           fs.writeFile(
             './db/db.json',
             JSON.stringify(parsedNewNotes, null, 4),
@@ -63,6 +66,8 @@ app.post('/api/notes', (req, res) => {
       res.json('Error in posting review');
     }
   });
+
+  
 
 
 app.listen(PORT, () =>
