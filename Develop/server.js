@@ -71,7 +71,7 @@ app.delete("/api/notes/:id", (req, res) => {
   let response = fs.readFileSync('./db/db.json', 'utf8');
   const responseJSON = JSON.parse(response)
 
-  const sideEnteredNotes = dataJSON.filter((note) => {
+  const sideEnteredNotes = responseJSON.filter((note) => {
     return note.id !== req.params.id;
   });
   
@@ -82,7 +82,7 @@ app.delete("/api/notes/:id", (req, res) => {
       }
     });
 
-  res.json(newNotes);
+  res.json(sideEnteredNotes);
 });
 
 app.listen(PORT, () =>
