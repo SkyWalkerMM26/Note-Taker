@@ -71,12 +71,19 @@ app.delete("/api/notes/:id", (req, res) => {
   let response = fs.readFileSync('./db/db.json', 'utf8');
   const responseJSON = JSON.parse(response)
 
-  const sideNotes = dataJSON.filter((note) => {
+  const sideEnteredNotes = dataJSON.filter((note) => {
     return note.id !== req.params.id;
   });
-
   
+  fs.writeFile( "./db/db.json",JSON.stringify(sideEnteredNotes),(err, text) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
 
+  res.json(newNotes);
+});
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
