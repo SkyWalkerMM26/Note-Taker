@@ -67,6 +67,14 @@ app.post('/api/notes', (req, res) => {
     }
   });
 
+app.delete("/api/notes/:id", (req, res) => { 
+  let response = fs.readFileSync('./db/db.json', 'utf8');
+  const responseJSON = JSON.parse(response)
+
+  const sideNotes = dataJSON.filter((note) => {
+    return note.id !== req.params.id;
+  });
+
   
 
 
