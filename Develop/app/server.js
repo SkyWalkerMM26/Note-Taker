@@ -1,5 +1,5 @@
 const express = require('express');
-let dbNotes = require('./db/db.json');
+let dbNotes = require('../db/db.json');
 const fs = require("fs");
 const path = require('path');
 var uniqid = require("uniqid");
