@@ -36,7 +36,7 @@ app.post('/api/notes', (req, res) => {
         id: uniqid(),
       };
   
-      fs.readFile('./db/db.json', 'utf8', (err, data) => {
+      fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
         } else {
@@ -45,7 +45,7 @@ app.post('/api/notes', (req, res) => {
           dbNotes =  parsedNewNotes;
 
           fs.writeFile(
-            './db/db.json',
+            './Develop/db/db.json',
             JSON.stringify(parsedNewNotes, null, 4),
             (writeErr) =>
               writeErr
@@ -68,14 +68,14 @@ app.post('/api/notes', (req, res) => {
   });
 
 app.delete("/api/notes/:id", (req, res) => { 
-  let response = fs.readFileSync('./db/db.json', 'utf8');
+  let response = fs.readFileSync('./Develop/db/db.json', 'utf8');
   const responseJSON = JSON.parse(response)
 
   const sideEnteredNotes = responseJSON.filter((note) => {
     return note.id !== req.params.id;
   });
   
-  fs.writeFile( "./db/db.json",JSON.stringify(sideEnteredNotes),(err, text) => {
+  fs.writeFile( "./Develop/db/db.json",JSON.stringify(sideEnteredNotes),(err, text) => {
       if (err) {
         console.error(err);
         return;
