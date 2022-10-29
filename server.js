@@ -4,15 +4,21 @@ const fs = require("fs");
 const path = require('path');
 var uniqid = require("uniqid");
 
+//our port that we set for Heroku/ our request server.
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+
+// this is parse incoming data. the url parse data that comes from a form.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//this let's use files in our public folder.
 app.use(express.static('public'));
 
+
+//get requests to routes and taking the user to the set directory.
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
@@ -20,6 +26,8 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+
+//get dat from api/routes website and post our data into the db.json file.
 app.get('/api/notes', (req, res) => {
     console.log(dbNotes);
     res.json(dbNotes);
@@ -33,6 +41,7 @@ app.post('/api/notes', (req, res) => {
       const newNotesEntry = {
         title,
         text,
+        //download a uniqid node module first then put it here to create id for each data object (title, text)
         id: uniqid(),
       };
   
@@ -67,6 +76,7 @@ app.post('/api/notes', (req, res) => {
     }
   });
 
+// delete data in db.json file when User wants to.
 app.delete("/api/notes/:id", (req, res) => { 
   let response = fs.readFileSync('./Develop/db/db.json', 'utf8');
   const responseJSON = JSON.parse(response)
@@ -85,6 +95,7 @@ app.delete("/api/notes/:id", (req, res) => {
   res.json(sideEnteredNotes);
 });
 
+//listening to requests that goes to the PORT we have defined.
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
