@@ -1,8 +1,10 @@
 # NOTE TAKER
 
+
 ## Author: Mai Moua 
 [GitHub](https://github.com/SkyWalkerMM26)
 [LinkedIn](https://www.linkedin.com/in/mai-moua-69a50517a/)
+[Deployed Heroku Website](https://note-taker--mm.herokuapp.com/)
 
 <img src="https://img.shields.io/badge/LICENSE-MIT-COLOR.svg?logo=LOGO">
 
